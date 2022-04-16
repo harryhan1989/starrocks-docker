@@ -40,6 +40,7 @@ services:
       - /root/nas/starrocks/fe/temp_dir:/opt/StarRocks-2.2.0-rc01/fe/temp_dir:rw
     ports:
       - "8030:8030"
+      - "9030:9030"
     networks:
       starrocksnet:
         ipv4_address: 192.167.1.30
@@ -101,6 +102,35 @@ services:
     networks:
       starrocksnet:
         ipv4_address: 192.167.1.32
+
+  be03:
+    image: harryhan1989/starrokcs:2.2.0-rc01
+    container_name: be03
+    hostname: be03
+    restart: always
+    command: [ "be" ]
+    depends_on:
+      - fe
+    environment:
+      FE_HOST: fe
+      BE_HOST: be03
+      BE_NETWORK: 192.167.1.32/24
+    deploy:
+      resources:
+        limits:
+          cpus: '8.00'
+          memory: 32G
+        reservations:
+          cpus: '0.25'
+          memory: 100M
+    volumes:
+      - /root/nas/starrocks/be03/log:/opt/StarRocks-2.2.0-rc01/be/log:rw
+      - /root/nas/starrocks/be03/data:/opt/StarRocks-2.2.0-rc01/be/data:rw
+    ports:
+      - "8043:8040"
+    networks:
+      starrocksnet:
+        ipv4_address: 192.167.1.33
 
 networks:
   starrocksnet:
