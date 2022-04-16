@@ -2,7 +2,7 @@ version: '3'
 services:
 
   fe:
-    image: ponylee/starrocks:1.18.2
+    image: ponylee/starrocks:2.2.0-rc01
     container_name: fe
     hostname: fe
     restart: always
@@ -18,17 +18,17 @@ services:
           cpus: '0.25'
           memory: 100M
     volumes:
-      - /data/doris/fe/log:/opt/StarRocks-1.18.2/fe/log:rw
-      - /data/doris/fe/doris-meta:/opt/StarRocks-1.18.2/fe/doris-meta:rw
-      - /data/doris/fe/temp_dir:/opt/StarRocks-1.18.2/fe/temp_dir:rw
+      - /data/starrocks/fe/log:/opt/StarRocks-2.2.0-rc01/fe/log:rw
+      - /data/starrocks/fe/starrocks-meta:/opt/StarRocks-2.2.0-rc01/fe/starrocks-meta:rw
+      - /data/starrocks/fe/temp_dir:/opt/StarRocks-2.2.0-rc01/fe/temp_dir:rw
     ports:
       - "8030:8030"
     networks:
-      dorisnet:
+      starrocksnet:
         ipv4_address: 192.167.1.30
 
   be01:
-    image: ponylee/starrocks:1.18.2
+    image: ponylee/starrocks:2.2.0-rc01
     container_name: be01
     hostname: be01
     restart: always
@@ -48,16 +48,16 @@ services:
           cpus: '0.25'
           memory: 100M
     volumes:
-      - /data/doris/be01/log:/opt/StarRocks-1.18.2/be/log:rw
-      - /data/doris/be01/data:/opt/StarRocks-1.18.2/be/data:rw
+      - /data/starrocks/be01/log:/opt/StarRocks-2.2.0-rc01/be/log:rw
+      - /data/starrocks/be01/data:/opt/StarRocks-2.2.0-rc01/be/data:rw
     ports:
       - "8041:8040"
     networks:
-      dorisnet:
+      starrocksnet:
         ipv4_address: 192.167.1.31
 
   be02:
-    image: ponylee/starrocks:1.18.2
+    image: ponylee/starrocks:2.2.0-rc01
     container_name: be02
     hostname: be02
     restart: always
@@ -77,17 +77,17 @@ services:
           cpus: '0.25'
           memory: 100M
     volumes:
-      - /data/doris/be02/log:/opt/StarRocks-1.18.2/be/log:rw
-      - /data/doris/be02/data:/opt/StarRocks-1.18.2/be/data:rw
+      - /data/starrocks/be02/log:/opt/StarRocks-2.2.0-rc01/be/log:rw
+      - /data/starrocks/be02/data:/opt/StarRocks-2.2.0-rc01/be/data:rw
     ports:
       - "8042:8040"
     networks:
-      dorisnet:
+      starrocksnet:
         ipv4_address: 192.167.1.32
 
-#docker network create -d bridge --subnet 192.167.1.0/24 --gateway 192.167.1.1 dorisnet
+#docker network create -d bridge --subnet 192.167.1.0/24 --gateway 192.167.1.1 starrocksnet
 networks:
-  dorisnet:
+  starrocksnet:
     external: true
 
 #volumes:
