@@ -2,7 +2,7 @@
 https://github.com/harryhan1989/starrocks-docker
 
 # starrocks-docker
-starrocks docker
+starrocks docker (后续新的版本不一定会及时更新，有需要编译新版本，可以github上给我提)
 
 # 构建
 先去 https://www.starrocks.com/zh-CN/download/community 这里下载指定版本，将版本号带入docker build中
